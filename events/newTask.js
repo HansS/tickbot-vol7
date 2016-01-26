@@ -1,6 +1,6 @@
 import tr from '../lib/requests'
 
-export default function newTask({projectId, name, budget}) {
+export default ({projectId, name, budget}) => {
   const task = {
     'name': name,
     'budget': budget,

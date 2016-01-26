@@ -14,11 +14,11 @@ import { newTaskConvo, newEntryConvo } from './lib/convos'
 dotenv.load()
 const listeners = [`direct_message`, `direct_mention`],
   controller = Botkit.slackbot({debug: false}),
-  bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM((err) => {
+  bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM(err => {
     (err) ? console.error(`Could not spawn bot: ${err}`) : console.log(`Live!`)
   })
 
-newEntry({taskId: 8145454, hours:5, notes:`ate a hotdog`})
+// newEntry({taskId: 8145454, hours:5, notes:`ate a hotdog`})
 
 controller.on(`channel_joined`, (bot, message) => {
   const projectName = message.channel.name,
@@ -30,13 +30,5 @@ controller.on(`channel_joined`, (bot, message) => {
     .then(project => newTask({name: taskName, projectId: project.id, budget: 4}))
 })
 
-// controller.hears([`^new task (.*) (.*) hours`], listeners, (bot, message) => {
-//   const [,taskName, taskBudget] = message.match,
-//     projectId = 1 // how to fetch projectId from this scope...
-//
-//   newTask(taskName, projectId, taskBudget)
-// })
-
 controller.hears([`^new task`], listeners, (bot, message) => bot.startConversation(message, newTaskConvo))
 controller.hears([`^new entry`], listeners, (bot, message) => bot.startConversation(message, newEntryConvo))
-// controller.hears([`^new entry (.*)`], listeners, (bot, message) => newEntry(bot, message))

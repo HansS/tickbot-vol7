@@ -1,6 +1,6 @@
 import tr from '../lib/requests'
 
-export default function newClient({name}) {
+export default ({name}) => {
   const client = {
     'name': name,
     'archive': false

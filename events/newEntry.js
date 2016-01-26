@@ -1,6 +1,6 @@
 import tr from '../lib/requests'
 
-export default function newEntry({taskId, hours, notes}) {
+export default ({taskId, hours, notes}) => {
   const currentDate = new Date(),
     formatedDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`,
     entry = {
