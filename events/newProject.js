@@ -8,7 +8,7 @@ export default ({clientId, name, budget}) => {
     'billable': true,
     'recurring': false,
     'client_id': clientId,
-    'owner_id': 3
+    'owner_id': 245247
   }
 
   return new Promise((resolve, reject) => {

@@ -5,6 +5,7 @@ export default ({name}) => {
     'name': name,
     'archive': false
   }
+
   return new Promise((resolve, reject) => {
     tr({method:'POST', path: 'clients', data: client})
       .then(client => resolve(client))

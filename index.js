@@ -8,17 +8,21 @@ import newProject from './events/newProject'
 import newTask from './events/newTask'
 import newEntry from './events/newEntry'
 
-import { getProjectIdFromName } from './lib/helpers'
 import { newTaskConvo, newEntryConvo } from './lib/convos'
 
 dotenv.load()
+
+// TESTS
+// newClient({name: `yeeeehawwww`})
+// newProject({name: `make salunch`, clientId: 281079, budget: 3})
+
+
 const listeners = [`direct_message`, `direct_mention`],
   controller = Botkit.slackbot({debug: false}),
   bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM(err => {
     (err) ? console.error(`Could not spawn bot: ${err}`) : console.log(`Live!`)
   })
 
-// newEntry({taskId: 8145454, hours:5, notes:`ate a hotdog`})
 
 controller.on(`channel_joined`, (bot, message) => {
   const projectName = message.channel.name,
@@ -27,7 +31,7 @@ controller.on(`channel_joined`, (bot, message) => {
   // TODO: create tasks described in the chan desc(perhaps loop/recursive)
   newClient({name: clientName})
     .then(client => newProject({name: projectName, clientId: client.id, budget: projectBudget}))
-    .then(project => newTask({name: taskName, projectId: project.id, budget: 4}))
+    // .then(project => newTask({name: taskName, projectId: project.id, budget: 4}))
 })
 
 controller.hears([`^new task`], listeners, (bot, message) => bot.startConversation(message, newTaskConvo))

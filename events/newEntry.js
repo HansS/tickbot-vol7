@@ -8,8 +8,8 @@ export default ({taskId, hours, notes}) => {
       'hours': hours,
       'notes': notes,
       'task_id': taskId
-  }
-  console.log(formatedDate)
+    }
+
   tr({method: 'POST', path: 'entries', data: entry})
     .then(data => { console.log(data) })
     .catch(error => { console.error(error) })
