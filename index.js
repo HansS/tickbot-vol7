@@ -9,7 +9,9 @@ import newTask from './events/newTask'
 import newEntry from './events/newEntry'
 import getEntries from './events/getEntries'
 
-import { newTaskConvo, newEntryConvo } from './lib/convos'
+import newTaskConvo from './convos/newTask'
+import newEntryConvo from './convos/newEntry'
+import getEntryConvo from './convos/getEntries'
 
 dotenv.load()
 
@@ -37,3 +39,4 @@ controller.on(`channel_joined`, (bot, message) => {
 
 controller.hears([`^new task`], listeners, (bot, message) => bot.startConversation(message, newTaskConvo))
 controller.hears([`^new entry`], listeners, (bot, message) => bot.startConversation(message, newEntryConvo))
+controller.hears([`^get entries`], listeners, (bot, message) => bot.startConversation(message, getEntryConvo))
