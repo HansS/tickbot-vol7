@@ -7,6 +7,7 @@ import newClient from './events/newClient'
 import newProject from './events/newProject'
 import newTask from './events/newTask'
 import newEntry from './events/newEntry'
+import getEntries from './events/getEntries'
 
 import { newTaskConvo, newEntryConvo } from './lib/convos'
 
@@ -15,7 +16,7 @@ dotenv.load()
 // TESTS
 // newClient({name: `yeeeehawwww`})
 // newProject({name: `make salunch`, clientId: 281079, budget: 3})
-
+getEntries().then(entries => console.log(entries))
 
 const listeners = [`direct_message`, `direct_mention`],
   controller = Botkit.slackbot({debug: false}),

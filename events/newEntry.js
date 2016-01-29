@@ -10,7 +10,7 @@ export default ({taskId, hours, notes}) => {
       'task_id': taskId
     }
 
-  tr({method: 'POST', path: 'entries', data: entry})
+  tr({method: 'POST', path: 'entries.json', data: entry})
     .then(data => { console.log(data) })
     .catch(error => { console.error(error) })
 }

@@ -9,7 +9,7 @@ export default ({projectId, name, budget}) => {
   }
 
   return new Promise((resolve, reject) => {
-    tr({method: 'POST', path: 'tasks', data: task})
+    tr({method: 'POST', path: 'tasks.json', data: task})
       .then(task => resolve(task))
       .catch(error => reject(error))
   })
