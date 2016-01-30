@@ -20,11 +20,8 @@ dotenv.load()
 // newProject({name: `make salunch`, clientId: 281079, budget: 3})
 getEntries().then(entries => console.log(entries))
 
-const listeners = [`direct_message`, `direct_mention`],
-  controller = Botkit.slackbot({debug: false}),
-  bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM(err => {
-    (err) ? console.error(`Could not spawn bot: ${err}`) : console.log(`Live!`)
-  })
+const controller = Botkit.slackbot({debug: false}),
+  bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM(err => (err) ? console.error(`Could not spawn bot: ${err}`) : console.log(`Live!`))
 
 
 controller.on(`channel_joined`, (bot, message) => {
@@ -37,6 +34,7 @@ controller.on(`channel_joined`, (bot, message) => {
     // .then(project => newTask({name: taskName, projectId: project.id, budget: 4}))
 })
 
-controller.hears([`^new task`], listeners, (bot, message) => bot.startConversation(message, newTaskConvo))
-controller.hears([`^new entry`], listeners, (bot, message) => bot.startConversation(message, newEntryConvo))
-controller.hears([`^get entries`], listeners, (bot, message) => bot.startConversation(message, getEntryConvo))
+controller.hears([`^new task`], `direct_mention`, (bot, message) => bot.startConversation(message, newTaskConvo))
+controller.hears([`^new entry`], `direct_mention`, (bot, message) => bot.startConversation(message, newEntryConvo))
+controller.hears([`^get project entries`], `direct_mention`, (bot, message) => bot.startConversation(message, getEntriesConvo))
+controller.hears([`^get entries`], `direct_message`, (bot, message) => bot.startConversation(message, getEntriesConvo))
