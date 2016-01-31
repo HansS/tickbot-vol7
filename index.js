@@ -32,13 +32,15 @@ import getUsers from './events/getUsers'
 bot.api.users.info({user: `U0HCMH82X`}, (error, slackUser) => {
   if (error) console.log(`couldnt fetch user`)
   else {
-    console.log(slackUser.user.profile.last_name)
     getUsers()
       .then(tickUsers => tickUsers.filter(tickUser => tickUser.last_name === slackUser.user.profile.last_name)[0])
       .then(user => getEntries({userId: user.id, startDate: `2016-01-01`, endDate: `2017-01-01`}))
-      .then(entries => console.log(entries))
+      .then(entries => {
+        console.log(user)
+      })
   }
 })
+
 //
 // controller.on(`channel_joined`, (bot, message) => {
 //   const projectName = message.channel.name,
