@@ -3,8 +3,8 @@ import getEntries from '../events/getEntries'
 import getUsers from '../events/getUsers'
 
 export default (response, convo) => {
-  convo.ask(`Retieve project entries starting from which date? (2014-09-02)`, (response, convo) => {
-    convo.ask(`Until? (2014-10-02)`, (response, convo) => {
+  convo.ask(`Retieve project entries starting from which date? (yyyy-mm-dd)`, (response, convo) => {
+    convo.ask(`Until?`, (response, convo) => {
       convo.next()
     })
     convo.next()
@@ -23,10 +23,7 @@ export default (response, convo) => {
           .then(tickUsers => tickUsers.filter(tickUser => tickUser.last_name === slackUser.user.profile.last_name)[0])
           .then(user => getEntries({userId: user.id, startDate: startDate, endDate: endDate}))
           .then(entries => {
-            let sum = 0
-            for (let entry of entries) {
-              sum += entry.hours
-            }
+            const sum = entries.reduce((sum, entry) => sum + entry.hours, 0)
             bot.say({text: `Total of ${sum} hours logged between ${startDate} and ${endDate}`, channel: channelId})
         })
       }
