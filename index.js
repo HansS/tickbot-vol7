@@ -15,17 +15,8 @@ import getProjectEntriesConvo from './convos/getProjectEntries'
 
 dotenv.load()
 
-// TESTS
-// getUsers().then(users => {
-//   console.log(users)
-// })
-// newClient({name: `yeeeehawwww`})
-// newProject({name: `make salunch`, clientId: 281079, budget: 3})
-// getEntries().then(entries => console.log(entries))
-
 const controller = Botkit.slackbot({debug: false}),
   bot = controller.spawn({token: process.env.SLACKTOKEN}).startRTM(err => (err) ? console.error(`Could not spawn bot: ${err}`) : console.log(`Live!`))
-
 
 controller.on(`channel_joined`, (bot, message) => {
   const projectName = message.channel.name,

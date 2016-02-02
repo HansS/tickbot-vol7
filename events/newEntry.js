@@ -1,16 +1,19 @@
 import tr from '../lib/requests'
 
-export default ({taskId, hours, notes}) => {
+export default ({taskId, userId, hours, notes}) => {
   const currentDate = new Date(),
     formatedDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`,
     entry = {
       'date': formatedDate,
       'hours': hours,
       'notes': notes,
-      'task_id': taskId
+      'task_id': taskId,
+      'user_id': userId
     }
 
-  tr({method: 'POST', path: 'entries.json', data: entry})
-    .then(data => { console.log(data) })
-    .catch(error => { console.error(error) })
+  return new Promise((resolve, reject) => {
+    tr({method: 'POST', path: 'entries.json', data: entry})
+      .then(entry => resolve(entry))
+      .catch(error => reject(error))
+    })
 }

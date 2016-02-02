@@ -1,20 +1,22 @@
-# tickbot :hourglass_flowing_sand:
+# Tickbot :hourglass_flowing_sand:
 
-Leveraging [Tickspot](https://github.com/tick/tick-api) api in Slack for time management
+Leveraging [Tickspot](https://github.com/tick/tick-api) API in Slack for time management and logging
 
 # Usage
 
-## Setup chan following these guidelines:
+## Setup channel following these guidelines
 
-1. Title: project_name
-2. Purpose: client_name:project_budget
+1. Title: `project_name`
+2. Purpose: `client_name:project_budget`
 3. `/invite tickbot`
 
-## Interacting with tickbot
+## Interacting with Tickbot
 
-+ @tickbot new task
-+ @tickbot new entry
++ Within a project context (channel)
+  + `@tickbot new task` create task associated with project
+  + `@tickbot new entry` create entry associated with project
+  + `@tickbot get entries` fetch entries associated with project
 
-Will initiate guided conversation by the bot
 
-(MORE TO COME)
++ Direct conversation
+  + `get entries` fetch entries associated with all projects
