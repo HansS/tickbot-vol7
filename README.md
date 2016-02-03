@@ -23,5 +23,5 @@ Leveraging [Tickspot](https://github.com/tick/tick-api) API in Slack for time ma
 
 # Preview
 
-![Making an entry](/screenshots/new_entry.jpg)
-![Fetching entries](/screenshots/get_entry.jpg)
+![Making an entry](/screenshots/new_entry.png)
+![Fetching entries](/screenshots/get_entry.png)
