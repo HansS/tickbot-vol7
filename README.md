@@ -20,3 +20,8 @@ Leveraging [Tickspot](https://github.com/tick/tick-api) API in Slack for time ma
 
 + Direct conversation
   + `get entries` fetch entries associated with all projects
+
+# Preview
+
+![Making an entry](/screenshots/new_entry.jpg)
+![Fetching entries](/screenshots/get_entry.jpg)
