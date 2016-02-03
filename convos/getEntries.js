@@ -25,7 +25,8 @@ export default (response, convo) => {
           .then(entries => {
             const sum = entries.reduce((sum, entry) => sum + entry.hours, 0)
             bot.say({text: `Total of ${sum} hours logged between ${startDate} and ${endDate}`, channel: channelId})
-        })
+          })
+          .catch(error => bot.say({text: `Error fetching entries`, channel: channelId}))
       }
     })
   })

@@ -1,6 +1,6 @@
 import tr from '../lib/requests'
 
-export default ({userId, startDate, endDate}) => new Promise((resolve, reject) => {
+export default ({userId, projectId, startDate, endDate}) => new Promise((resolve, reject) => {
   const [today] = new Date().toISOString().split('T'),
     yesterday = new Date().setDate(tomorrow.getDate() - 1)
 
@@ -22,7 +22,7 @@ export default ({userId, startDate, endDate}) => new Promise((resolve, reject) =
       break;
   }
 
-  const path = `users/${userId}/entries.json?start_date='${startDate}'&end_date='${endDate}'&billable=true$"`
+  const path = `projects/${projectId}/entries.json?start_date='${startDate}'&end_date='${endDate}'&user_id=${userId}&billable=true$"`
 
   tr({method: 'GET', path: path})
     .then(entries => resolve(entries))

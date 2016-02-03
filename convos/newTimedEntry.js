@@ -15,7 +15,8 @@ async function postEntry(slackUser, taskName, hours, notes) {
 export default (response, convo) => {
   convo.ask(`What task is this entry for?`, (response, convo) => {
     convo.say(`Awesome.`)
-    convo.ask(`And how many hours did it take?`, (response, convo) => {
+    convo.ask(`Ok, just let me know when you've finished!`, (response, convo) => {
+      const startTime = new Date()
       convo.ask(`Any notes to add?`, (response, convo) => {
         convo.next()
       })
@@ -26,16 +27,17 @@ export default (response, convo) => {
   convo.on(`end`, convo => {
     const reponses = convo.extractResponses(),
       taskName = reponses[Object.keys(reponses)[0]],
-      hours = reponses[Object.keys(reponses)[1]],
       notes = reponses[Object.keys(reponses)[2]],
       userSlackId = convo.source_message.user,
-      channelId = convo.source_message.channel
+      hours = Math.round(((startTime - new Date()) % 86400000) / 3600000)
 
     bot.api.users.info({user: userSlackId}, (error, slackUser) => {
       if (error) console.log(`couldnt fetch user`)
-      postEntry(slackUser, taskName, hours, notes)
-        .then(entry => bot.say({text: `Entry submitted`, channel: channelId}))
-        .catch(error => bot.say({text: `Error submiting entry`, channel: channelId}))
+      else {
+        postEntry(slackUser, taskName, hours, notes)
+          .then(entry => console.log(entry))
+          .catch(error => console.log(error))
+      }
     })
   })
 }

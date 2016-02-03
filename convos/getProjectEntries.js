@@ -1,6 +1,15 @@
 import getTaskIdFromName from '../lib/helpers'
-import getEntries from '../events/getEntries'
-import getProjectIdFromName from '../lib/helpers'
+import getProjectEntries from '../events/getEntries'
+import getProjects from '../events/getProjects'
+
+async function getProjectEntries(slackUser, channelName, startDate, endDate) {
+  const tickUsers = await getUsers(),
+    projects = getProjects(),
+    user = tickUsers.filter(tickUser => tickUser.last_name === slackUser.user.profile.last_name)[0],
+    project = projects.filter(project => project.name === channelName)[0]
+
+  return getProjectEntries({ userId: user.id, projectId: project.id, startDate: startDate, endDate: endDate })
+}
 
 export default (response, convo) => {
   convo.ask(`Retieve project entries starting from which date? (yyyy-mm-dd)`, (response, convo) => {
@@ -14,18 +23,14 @@ export default (response, convo) => {
       startDate = reponses[Object.keys(reponses)[0]],
       endDate = reponses[Object.keys(reponses)[1]],
       userSlackId = convo.source_message.user,
-      channelId = convo.source_message.channel
+      channelId = convo.source_message.channel,
+      channelName = channel.channel.name
 
     bot.api.users.info({user: userSlackId}, (error, slackUser) => {
       if (error) console.log(`couldnt fetch user`)
       else {
-        getUsers()
-          .then(tickUsers => tickUsers.filter(tickUser => tickUser.last_name === slackUser.user.profile.last_name)[0])
-          .then(user => getEntries({userId: user.id, startDate: startDate, endDate: endDate}))
-          .then(entries => {
-            const sum = entries.reduce((sum, entry) => sum + entry.hours, 0)
-            bot.say({text: `Total of ${sum} hours logged between ${startDate} and ${endDate}`, channel: channelId})
-        })
+        getProjectEntries(slackUser, channelName , startDate, endDate)
+        .then(entries => console.log(entries))
       }
     })
   })

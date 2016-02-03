@@ -1,8 +1,7 @@
 import tr from '../lib/requests'
 
 export default ({taskId, userId, hours, notes}) => {
-  const currentDate = new Date(),
-    formatedDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`,
+  const [formatedDate] = new Date().toISOString().split('T'),
     entry = {
       'date': formatedDate,
       'hours': hours,
