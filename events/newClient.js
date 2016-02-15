@@ -1,14 +1,14 @@
-import tr from '../lib/requests'
+import tr from '../lib/requests';
 
-export default ({name}) => {
+export default (name) => {
   const client = {
-    'name': name,
-    'archive': false
-  }
+    name,
+    archive: false,
+  };
 
   return new Promise((resolve, reject) => {
-    tr({method:'POST', path: 'clients.json', data: client})
+    tr({ method: 'POST', path: 'clients.json', data: client })
       .then(client => resolve(client))
-      .catch(error => reject(error))
-  })
-}
+      .catch(error => reject(error));
+  });
+};

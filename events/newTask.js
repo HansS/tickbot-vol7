@@ -1,16 +1,16 @@
-import tr from '../lib/requests'
+import tr from '../lib/requests';
 
-export default ({projectId, name, budget}) => {
+export default ({ project_id, name, budget }) => {
   const task = {
-    'name': name,
-    'budget': budget,
-    'project_id': projectId,
-    'billable': false
-  }
+    name,
+    budget,
+    project_id,
+    billable: false,
+  };
 
   return new Promise((resolve, reject) => {
-    tr({method: 'POST', path: 'tasks.json', data: task})
+    tr({ method: 'POST', path: 'tasks.json', data: task })
       .then(task => resolve(task))
-      .catch(error => reject(error))
-  })
-}
+      .catch(e => reject(e));
+  });
+};

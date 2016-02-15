@@ -1,18 +1,18 @@
-import tr from '../lib/requests'
+import tr from '../lib/requests';
 
-export default ({taskId, userId, hours, notes}) => {
-  const [formatedDate] = new Date().toISOString().split('T'),
-    entry = {
-      'date': formatedDate,
-      'hours': hours,
-      'notes': notes,
-      'task_id': taskId,
-      'user_id': userId
-    }
+export default (task_id, user_id, hours, notes) => {
+  const [date] = new Date().toISOString().split('T');
+  const entry = {
+    hours,
+    notes,
+    user_id,
+    task_id,
+    date,
+  };
 
   return new Promise((resolve, reject) => {
-    tr({method: 'POST', path: 'entries.json', data: entry})
+    tr({ method: 'POST', path: 'entries.json', data: entry })
       .then(entry => resolve(entry))
-      .catch(error => reject(error))
-    })
-}
+      .catch(error => reject(error));
+  });
+};
