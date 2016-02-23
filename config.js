@@ -4,6 +4,5 @@ dotenv.load();
 
 export default {
   slackToken: process.env.SLACKTOKEN,
-  tickSubId: process.env.TICKSUBID,
-  tickToken: process.env.TICKTOKEN,
+  db: process.env.MONGO_URL,
 };
