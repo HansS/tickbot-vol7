@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const EntrySchema = new mongoose.Schema({
   hours: Number,
-  user: String,
+  slack: String,
   notes: String,
   project: String,
   created: { type: Date, default: Date.now },

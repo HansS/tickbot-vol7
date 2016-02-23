@@ -1,11 +1,19 @@
 import bot from '../index';
 import Entry from '../models/entry';
+import getProjectName from '../lib/helper';
 
-export default (response, convo) => {
-  convo.ask(`How many hours are you logging for this entry?`, (response, convo) => {
+const getChannelFromId = id => new Promise((resolve, reject) => {
+  bot.api.channels.info({ channel: id }, (e, channel) => {
+    if (e) reject(e);
+    resolve(channel.channel);
+  });
+});
+
+export default (res, convo) => {
+  convo.ask(`How many hours are you logging for this entry?`, (res, convo) => { /* eslint no-shadow: 0 */
     convo.say(`Awesome.`);
-      convo.ask(`Any notes to add?`, (response, convo) => {
-        convo.next();
+    convo.ask(`Any notes to add?`, (res, convo) => {
+      convo.next();
     });
     convo.next();
   });
@@ -13,15 +21,18 @@ export default (response, convo) => {
     const reponses = convo.extractResponses();
     const hours = reponses[Object.keys(reponses)[0]];
     const notes = reponses[Object.keys(reponses)[1]];
-    const slack = convo.source_message.user;
+    const user = convo.source_message.user;
     const channel = convo.source_message.channel;
 
-    bot.api.users.info({ user: slack }, (e, slackUser) => {
+    bot.api.users.info({ user }, (e, slack) => {
       if (e) throw new Error(e);
-      const entry = new Entry({ slack, hours, notes });
-      entry.save()
-        .then(entry => bot.say({ text: `Entry submitted`, channel }))
-        .catch(error => bot.say({ text: `Error submiting entry`, channel }));
+      getProjectName(channel)
+        .then(project => {
+          const entry = new Entry({ slack: slack.user.id, project, hours, notes });
+          entry.save()
+            .then(bot.say({ text: `Entry submitted`, channel }))
+            .catch(bot.say({ text: `Error submiting entry`, channel }));
+        });
     });
   });
 };
