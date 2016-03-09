@@ -23,8 +23,8 @@ export default (res, convo) => {
         .then(project => {
           const entry = new Entry({ slack: slack.user.id, project, hours, notes });
           entry.save()
-            .then(bot.say({ text: `Entry submitted`, channel }))
-            .catch(bot.say({ text: `Error submiting entry`, channel }));
+            .then(() => bot.say({ text: `Entry submitted`, channel }))
+            .catch(() => bot.say({ text: `Error submiting entry`, channel }));
         });
     });
   });

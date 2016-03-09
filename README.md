@@ -1,29 +1,30 @@
 # Tickbot :hourglass_flowing_sand:
 
-Leveraging [Tickspot](https://github.com/tick/tick-api) API in Slack for time management and logging.
+Super simple Slackbot for task logging.
 
 # Usage
 
-## Members: Request invite to the team [Tick](https://volume-7.tickspot.com).
-
-## Admins: Setup channel following these guidelines
+## Setup project channel:
 
 1. Title: `project_name`
-2. Purpose: `client_name:project_budget`
-3. `/invite tickbot`
+2. `/invite tickbot`
 
 ## Interacting with Tickbot
 
+Date input parsing handled by [datejs](https://github.com/matthewmueller/date) i.e `yesterday afternoon at 4:30pm`
+
 + Within a project context (channel)
-  + `@tickbot new task` create task associated with channel project
   + `@tickbot new entry` create entry associated with channel project
   + `@tickbot get entries` fetch entries associated with channel project
-
 
 + Direct conversation
   + `get entries` fetch entries associated with *all* projects
 
-# Preview
+## Preview
 
 ![Making an entry](/screenshots/new_entry.png)
 ![Fetching entries](/screenshots/get_entry.png)
+
+## Roadmap
+
++ Admin interface for data overview

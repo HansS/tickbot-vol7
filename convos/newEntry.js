@@ -2,13 +2,6 @@ import bot from '../index';
 import Entry from '../models/entry';
 import getProjectName from '../lib/helper';
 
-const getChannelFromId = id => new Promise((resolve, reject) => {
-  bot.api.channels.info({ channel: id }, (e, channel) => {
-    if (e) reject(e);
-    resolve(channel.channel);
-  });
-});
-
 export default (res, convo) => {
   convo.ask(`How many hours are you logging for this entry?`, (res, convo) => { /* eslint no-shadow: 0 */
     convo.say(`Awesome.`);
@@ -30,8 +23,8 @@ export default (res, convo) => {
         .then(project => {
           const entry = new Entry({ slack: slack.user.id, project, hours, notes });
           entry.save()
-            .then(bot.say({ text: `Entry submitted`, channel }))
-            .catch(bot.say({ text: `Error submiting entry`, channel }));
+            .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
+            .catch(() => bot.say({ text: `Error submiting entry`, channel }));
         });
     });
   });

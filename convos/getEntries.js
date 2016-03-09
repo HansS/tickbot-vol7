@@ -25,7 +25,7 @@ export default (res, convo) => {
             const sum = entries.reduce((sum, entry) => sum + entry.hours, 0);
             bot.say({ text: `Total of ${sum} hours logged between ${startDate} and ${endDate}`, channel });
           })
-          .catch(bot.say({ text: `Error fetching entries`, channel }));
+          .catch(e => bot.say({ text: `Error fetching entries`, channel }));
       }
     });
   });

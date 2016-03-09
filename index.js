@@ -21,15 +21,6 @@ const bot = controller.spawn({ token: config.slackToken }).startRTM(e => {
   console.log('live@@11@11');
 });
 
-// controller.on(`channel_joined`, (bot, message) => { /* eslint no-shadow: 0 */
-//   const name = message.channel.name;
-//   const project = new Project({ name });
-//
-//   project.save()
-//     .then(project => console.log('made project'))
-//     .catch(e => console.log(e));
-// });
-
 controller.hears([`^new entry`], `direct_mention`, (bot, message) => bot.startConversation(message, newEntryConvo));
 controller.hears([`time me`], `direct_mention`, (bot, message) => bot.startConversation(message, newTimedEntryConvo));
 controller.hears([`^get entries`], `direct_mention`, (bot, message) => bot.startConversation(message, getProjectEntriesConvo));
