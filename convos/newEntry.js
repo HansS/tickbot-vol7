@@ -18,14 +18,18 @@ export default (res, convo) => {
     const channel = convo.source_message.channel;
 
     bot.api.users.info({ user }, (e, slack) => {
-      if (e) throw new Error(e);
-      getProjectName(channel)
-        .then(project => {
-          const entry = new Entry({ slack: slack.user.id, project, hours, notes });
-          entry.save()
-            .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
-            .catch(() => bot.say({ text: `Error submiting entry`, channel }));
-        });
+      if (e) bot.say({ text: `Error fetching user`, channel });
+      else {
+        const username = slack.user.real_name;
+        getProjectName(channel)
+          .then(project => {
+            const entry = new Entry({ username, project, hours, notes });
+            entry.save()
+              .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
+              .catch(() => bot.say({ text: `Error submiting entry`, channel }));
+          })
+          .catch(() => bot.say({ text: `Error fetching project name`, channel }));
+      }
     });
   });
 };

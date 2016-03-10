@@ -22,7 +22,7 @@ const bot = controller.spawn({ token: config.slackToken }).startRTM(e => {
 });
 
 controller.hears([`^new entry`], `direct_mention`, (bot, message) => bot.startConversation(message, newEntryConvo));
-controller.hears([`time me`], `direct_mention`, (bot, message) => bot.startConversation(message, newTimedEntryConvo));
+controller.hears([`^time me`], `direct_mention`, (bot, message) => bot.startConversation(message, newTimedEntryConvo));
 controller.hears([`^get entries`], `direct_mention`, (bot, message) => bot.startConversation(message, getProjectEntriesConvo));
 controller.hears([`^get entries`], `direct_message`, (bot, message) => bot.startConversation(message, getEntriesConvo));
 
