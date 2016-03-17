@@ -17,16 +17,17 @@ export default (res, convo) => {
     const user = convo.source_message.user;
     const channel = convo.source_message.channel;
     const hours = moment.duration(new Date() - start).asHours();
-    
+
     bot.api.users.info({ user }, (e, slack) => {
       if (e) bot.say({ text: `Error fetching user`, channel });
       else {
-        const username = slack.user.real_name;
+        const name = slack.user.real_name;
+        const avatar = slack.user.image_48;
         getProjectName(channel)
           .then(project => {
-            const entry = new Entry({ username, project, hours, notes });
+            const entry = new Entry({ name, avatar, project, hours, notes });
             entry.save()
-              .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
+              .then(() => bot.say({ text: `${hours.toFixed(2)} hours submitted for ${project}!!1`, channel }))
               .catch(() => bot.say({ text: `Error submiting entry`, channel }));
           });
       }

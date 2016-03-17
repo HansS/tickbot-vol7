@@ -1,7 +1,5 @@
-import 'babel-core/register';
-
-import mongoose from 'mongoose';
 import Botkit from 'botkit';
+import mongoose from 'mongoose';
 
 import config from './config';
 import newEntryConvo from './convos/newEntry';

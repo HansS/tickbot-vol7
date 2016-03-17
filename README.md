@@ -25,6 +25,21 @@ Date input parsing handled by [datejs](https://github.com/matthewmueller/date) i
 ![Making an entry](/screenshots/new_entry.png)
 ![Fetching entries](/screenshots/get_entry.png)
 
-## Roadmap
+## Development
 
-+ Admin interface for data overview
+```shell
+npm install
+gulp serve
+```
+
+## Deployment
+
+```shell
+gulp build
+scp -rp dist/ ../deploy/tickbot
+git init
+git remote add dokku dokku:tickbot
+git add -A
+git commit -m 'here we go!!'
+git push dokku master
+```
