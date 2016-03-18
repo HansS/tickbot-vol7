@@ -20,10 +20,10 @@ export default (res, convo) => {
     bot.api.users.info({ user }, (e, slack) => {
       if (e) bot.say({ text: `Error fetching user`, channel });
       else {
-        const username = slack.user.real_name;
+        const name = slack.user.real_name;
         getProjectName(channel)
           .then(project => {
-            Entry.find({ username, project })
+            Entry.find({ name, project })
               .where('created').gt(start).lt(end)
               .where('project').equals(project)
               .then(entries => {

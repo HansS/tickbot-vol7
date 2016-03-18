@@ -22,7 +22,7 @@ export default (res, convo) => {
       if (e) bot.say({ text: `Error fetching user`, channel });
       else {
         const name = slack.user.real_name;
-        const avatar = slack.user.image_48;
+        const avatar = slack.user.profile.image_48;
         getProjectName(channel)
           .then(project => {
             const entry = new Entry({ name, avatar, project, hours, notes });

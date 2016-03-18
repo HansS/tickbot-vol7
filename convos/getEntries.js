@@ -20,8 +20,8 @@ export default (res, convo) => {
     bot.api.users.info({ user }, (e, slack) => {
       if (e) bot.say({ text: `Error fetching user`, channel });
       else {
-        const username = slack.user.real_name;
-        Entry.find({ username })
+        const name = slack.user.real_name;
+        Entry.find({ name })
           .where('created').gt(start).lt(end)
           .then(entries => {
             const sum = entries.reduce((sum, entry) => sum + entry.hours, 0);
