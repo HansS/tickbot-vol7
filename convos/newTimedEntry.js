@@ -27,7 +27,7 @@ export default (res, convo) => {
           .then(project => {
             const entry = new Entry({ name, avatar, project, hours, notes });
             entry.save()
-              .then(() => bot.say({ text: `${hours.toFixed(2)} hours submitted for ${project}!!1`, channel }))
+              .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
               .catch(() => bot.say({ text: `Error submiting entry`, channel }));
           });
       }
