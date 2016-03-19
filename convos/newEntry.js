@@ -30,7 +30,7 @@ export default (res, convo) => {
             entry.validate()
               .then(() => {
                 bot.say({ text: `${hours} hours submitted for ${project}!`, channel });
-                socket.emmit('post', { entry });
+                socket.emit('post', { entry });
               })
               .catch((e) => bot.say({ text: `Error submiting entry ${e}`, channel }));
           })
