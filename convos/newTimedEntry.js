@@ -23,9 +23,10 @@ export default (res, convo) => {
       else {
         const name = slack.user.real_name;
         const avatar = slack.user.profile.image_48;
+        const member = { name, avatar };
         getProjectName(channel)
           .then(project => {
-            const entry = new Entry({ name, avatar, project, hours, notes });
+            const entry = new Entry({ member, project, hours, notes });
             entry.save()
               .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
               .catch(() => bot.say({ text: `Error submiting entry`, channel }));

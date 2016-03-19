@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
 const EntrySchema = new mongoose.Schema({
-  name: String,
-  avatar: String,
+  member: {
+    name: String,
+    avatar: String
+  },
   hours: Number,
   notes: String,
   project: String,
