@@ -1,5 +1,6 @@
 import moment from 'moment'
 import bot from '../index';
+import socket from '../socket';
 import Entry from '../models/entry';
 import getProjectName from '../lib/helper';
 
@@ -27,8 +28,11 @@ export default (res, convo) => {
         getProjectName(channel)
           .then(project => {
             const entry = new Entry({ member, project, hours, notes });
-            entry.save()
-              .then(() => bot.say({ text: `${hours} hours submitted for ${project}!!1`, channel }))
+            entry.validate()
+              .then(() => {
+                bot.say({ text: `${hours} hours submitted for ${project}!`, channel });
+                socket.emmit('post', { entry });
+              })
               .catch(() => bot.say({ text: `Error submiting entry`, channel }));
           });
       }
